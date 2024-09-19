@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, Col, Form, Image, Row } from "react-bootstrap";
 import logo from "../../assets/images/logo-tooltabs-circle.png";
 import Axios from "../../api/Axios";
@@ -11,6 +11,7 @@ const FormLogin = () => {
     // *"use for Validation"*
     const [validateEmail, setValidateEmail] = useState("");
     const [validatePassword, setValidatePassword] = useState("");
+    const [userInvalid, setUserInvalid] = useState("");
 
     const navigate = useNavigate();
 
@@ -22,9 +23,13 @@ const FormLogin = () => {
                 localStorage.setItem("token", response.data.response.token);
                 setEmail("");
                 setPassword("");
-                navigate("/dashboard");
+                navigate("/main/dashboard");
+                navigate(0);
             })
             .catch((error) => {
+                if (error.response.data.code === 401) {
+                    setUserInvalid(error.response.data.message);
+                }
                 setValidateEmail(error.response.data.request.email);
                 setValidatePassword(error.response.data.request.password);
             });
@@ -50,6 +55,26 @@ const FormLogin = () => {
                         <h3 style={{ color: "#0a2d3d" }}>
                             Welcome to Tooltabs App!
                         </h3>
+                        {userInvalid && (
+                            <div className="alert alert-danger alert-dismissible fade show">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    width="24"
+                                    height="24"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    fill="none"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="mr-2"
+                                >
+                                    <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon>
+                                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                                </svg>
+                                <strong>Error!</strong> {userInvalid}
+                            </div>
+                        )}
                     </Col>
                 </Row>
                 <Row>

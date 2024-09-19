@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import Dashboard from "./pages/dashboard/Dashboard";
 import Login from "./pages/auth/Login";
+import Template from "./components/layout/Index";
 
 function App() {
     const [count, setCount] = useState(0);
@@ -11,7 +11,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/main/dashboard" element={<Template />} />
             </Routes>
         </div>
     );
