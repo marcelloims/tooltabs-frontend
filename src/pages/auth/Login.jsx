@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import "../../myStyle.css";
 import { Col, Container, Row } from "react-bootstrap";
 import FormLogin from "../../components/auth/FormLogin";
 import { useNavigate } from "react-router-dom";
+import "../../myStyle.css";
 
 const Login = () => {
     const navigate = useNavigate();
