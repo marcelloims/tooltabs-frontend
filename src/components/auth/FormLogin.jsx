@@ -21,6 +21,11 @@ const FormLogin = () => {
         await Axios.post("/auth/login", { email, password })
             .then((response) => {
                 localStorage.setItem("token", response.data.response.token);
+                localStorage.setItem("user_id", response.data.response.user.id);
+                localStorage.setItem(
+                    "department_per_position_id",
+                    response.data.response.user.department_per_position_id
+                );
                 setEmail("");
                 setPassword("");
                 navigate("/main/dashboard");
